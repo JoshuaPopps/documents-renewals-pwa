@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="1990">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Documents &amp; Renewals</title>
+<meta name="description" content="Every paper with a date on it — registration, insurance, licenses, warranties, titles — and when each one comes due. All dates typed in by you, nothing invented. Works offline, data stays on your device.">
+<meta name="theme-color" content="#070709">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600;700&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <p class="eyebrow">shop log &mdash; popps&rsquo;s garage</p>
+  <h1>Documents &amp; Renewals</h1>
+  <p class="tagline">Every paper with a date on it — and when each one comes due.</p>
+</header>
+
+<main>
+  <!-- DOCUMENTS -->
+  <section id="view-docs" class="view active">
+    <p class="muted">Status rule: <strong>overdue</strong> is past its date, <strong>due soon</strong> is within 30 days, <strong>current</strong> is further out, and <strong>no expiry</strong> is paper that has no renewal date. Worst first.</p>
+    <div class="grid">
+      <label>Bike
+        <select id="docs-bike"></select>
+      </label>
+      <label>Type
+        <select id="docs-type"></select>
+      </label>
+      <label>Status
+        <select id="docs-status">
+          <option value="all">All statuses</option>
+          <option value="overdue">Overdue</option>
+          <option value="due-soon">Due soon</option>
+          <option value="current">Current</option>
+          <option value="no-expiry">No expiry</option>
+        </select>
+      </label>
+    </div>
+    <label>Search
+      <input type="text" id="docs-search" placeholder="name or notes — e.g. registration, BADNEW5">
+    </label>
+    <div id="docs-list"></div>
+
+    <h2 id="form-heading">Add a document</h2>
+    <form id="doc-form" class="card">
+      <div class="grid">
+        <label>Name<input type="text" id="d-name" required placeholder="e.g. 1995 Fat Boy — registration"></label>
+        <label>Type<select id="d-type">
+          <option>Registration</option>
+          <option>Insurance</option>
+          <option>License</option>
+          <option>Warranty</option>
+          <option>Title</option>
+          <option>Other</option>
+        </select></label>
+        <label>Bike<select id="d-bike"></select></label>
+        <label>Expiry / renewal date (optional)<input type="date" id="d-expiry"></label>
+        <label>Renewal cost, $ (optional)<input type="number" id="d-cost" inputmode="decimal" min="0" step="0.01" placeholder="e.g. 20.50"></label>
+      </div>
+      <label>Notes<textarea id="d-notes" rows="2" placeholder="e.g. plate BADNEW5, renew at AZ MVD Now"></textarea></label>
+      <p class="muted">Name is all it takes — the rest is optional. Leave the date blank for paper with no expiry (a title, a bill of sale): it is kept on file as "No expiry" and the app never invents a renewal date for it. A renewal cost left blank means unknown, not $0.</p>
+      <button type="submit" class="primary" id="doc-submit">Add document</button>
+      <button type="button" class="secondary" id="doc-cancel" style="display:none">Cancel edit</button>
+    </form>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="view-summary" class="view">
+    <h2>Summary</h2>
+    <p class="muted">Counts by status and the renewal costs you entered. A document with no cost entered has no cost in the totals — the summary counts it as unpriced instead of guessing a price.</p>
+    <label>Bike
+      <select id="summary-bike"></select>
+    </label>
+    <div id="summary-cards"></div>
+  </section>
+
+  <!-- BIKES -->
+  <section id="view-bikes" class="view">
+    <h2>Bikes</h2>
+    <p class="muted">Bikes live in the shared Pocket Garage roster — the same b1/b2/b3 list the other apps use. Add a bike here and it is added to that roster for every app. There is no delete-bike here: roster management belongs to the landing dashboard, so a mistyped bike is removed there, not here.</p>
+    <div id="bikes-list"></div>
+
+    <h3>Add a bike</h3>
+    <form id="bike-form" class="card">
+      <div class="grid">
+        <label>Name<input type="text" id="bike-name" required placeholder="e.g. 1995 Fat Boy"></label>
+        <label>Year<input type="text" id="bike-year" inputmode="numeric" placeholder="1995"></label>
+        <label>Model<input type="text" id="bike-model" placeholder="Fat Boy"></label>
+      </div>
+      <label>Notes<textarea id="bike-notes" rows="2"></textarea></label>
+      <button type="submit" class="primary">Add bike</button>
+    </form>
+  </section>
+
+  <!-- DATA -->
+  <section id="view-data" class="view">
+    <h2>Your data</h2>
+    <p class="muted">No account, no server, no sync. Your documents live in this browser's local storage. Back them up with Export — one JSON file.</p>
+    <p id="data-counts" class="card"></p>
+    <div class="card">
+      <h3>Export</h3>
+      <p class="muted">The backup is the whole file — every bike, every document. The per-bike export below is one bike's documents, as JSON or readable plain text.</p>
+      <button id="export-btn" class="primary">Download JSON backup</button>
+      <button id="copy-export-btn" class="secondary">Copy JSON to clipboard</button>
+    </div>
+    <div class="card">
+      <h3>Export one bike</h3>
+      <label>Bike<select id="export-bike"></select></label>
+      <button id="export-json-btn" class="primary">Download JSON (this bike)</button>
+      <button id="export-text-btn" class="secondary">Download text (this bike)</button>
+      <button id="copy-text-btn" class="secondary">Copy text</button>
+    </div>
+    <div class="card">
+      <h3>Import</h3>
+      <p class="muted">Import replaces the current file. Export first if you want to keep it. Documents pointing at a bike the shared roster doesn't have yet still load — they show under their roster key until that bike is added.</p>
+      <label>From file<input type="file" id="import-file" accept=".json,application/json"></label>
+      <label>Or paste JSON<textarea id="import-text" rows="4"></textarea></label>
+      <button id="import-btn" class="primary">Import documents</button>
+    </div>
+    <div class="card">
+      <h3>Try it out</h3>
+      <p class="muted">Loads example documents so you can see the overdue, due-soon, current, and no-expiry statuses, and what an unpriced document does to the totals — before entering your own papers. The example dates are relative to today, and the example costs are example costs only.</p>
+      <button id="sample-btn" class="secondary">Load example data</button>
+      <button id="clear-btn" class="danger">Delete all documents</button>
+      <p class="muted">Delete clears this app's documents only. The shared bike roster is not touched.</p>
+    </div>
+  </section>
+</main>
+
+<nav class="bottomnav" aria-label="Sections">
+  <button class="navbtn active" data-view="docs">Documents</button>
+  <button class="navbtn" data-view="summary">Summary</button>
+  <button class="navbtn" data-view="bikes">Bikes</button>
+  <button class="navbtn" data-view="data">Data</button>
+</nav>
+
+<div id="toast" class="toast" role="status"></div>
+<script src="sw-update.js"></script>
+<script src="bike-profile.js"></script>
+<script src="app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () { /* offline use is optional */ });
+    });
+  }
+</script>
+</body>
+</html>
