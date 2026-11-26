@@ -1,10 +1,11 @@
 /* Documents & Renewals service worker — app-shell cache so the
  * file works offline in the garage. Version the cache name on release. */
-var CACHE = 'documents-renewals-v1';
+var CACHE = 'documents-renewals-v2';
 var ASSETS = [
   './', './index.html', './styles.css', './app.js',
   './sw-update.js', './bike-profile.js',
   './manifest.webmanifest',
+  './assets/hero-documents-renewals.svg',
   './icons/icon-192.png', './icons/icon-512.png'
 ];
 

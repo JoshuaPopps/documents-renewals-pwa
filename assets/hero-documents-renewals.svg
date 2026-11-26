@@ -1,0 +1,53 @@
+<!-- Documents & Renewals hero — hand-drawn, word-free. A folder
+     with three fanned documents, the middle one sealed in purple.
+     Blueprint-sketch style: chrome linework on gloss black, purple
+     accent. Drawn for the app; no stock art, no text. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 240" role="img" aria-label="Documents and folder line drawing">
+  <defs>
+    <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#e3e3ea"/>
+      <stop offset="48%" stop-color="#a8a8b2"/>
+      <stop offset="60%" stop-color="#f4f4f8"/>
+      <stop offset="78%" stop-color="#c6c6cf"/>
+      <stop offset="100%" stop-color="#8e8e99"/>
+    </linearGradient>
+  </defs>
+  <!-- blueprint construction lines -->
+  <line x1="430" y1="18" x2="430" y2="228" stroke="#9d6bff" stroke-width="1" stroke-dasharray="3 6" opacity=".35"/>
+  <circle cx="430" cy="110" r="52" fill="none" stroke="url(#chrome)" stroke-width="1" stroke-dasharray="3 6" opacity=".35"/>
+  <!-- ground line with a purple segment under the folder -->
+  <line x1="60" y1="218" x2="800" y2="218" stroke="url(#chrome)" stroke-width="2"/>
+  <line x1="290" y1="218" x2="570" y2="218" stroke="#9d6bff" stroke-width="2"/>
+  <!-- left sheet, tilted -->
+  <g transform="rotate(-8 360 110)">
+    <rect x="318" y="46" width="84" height="118" fill="#101014" stroke="url(#chrome)" stroke-width="3"/>
+    <g stroke="url(#chrome)" stroke-width="2" opacity=".7">
+      <line x1="330" y1="66" x2="390" y2="66"/>
+      <line x1="330" y1="80" x2="390" y2="80"/>
+      <line x1="330" y1="94" x2="374" y2="94"/>
+    </g>
+  </g>
+  <!-- right sheet, tilted -->
+  <g transform="rotate(8 500 110)">
+    <rect x="458" y="46" width="84" height="118" fill="#101014" stroke="url(#chrome)" stroke-width="3"/>
+    <g stroke="url(#chrome)" stroke-width="2" opacity=".7">
+      <line x1="470" y1="66" x2="530" y2="66"/>
+      <line x1="470" y1="80" x2="530" y2="80"/>
+      <line x1="470" y1="94" x2="514" y2="94"/>
+    </g>
+  </g>
+  <!-- middle sheet, front and center, purple seal -->
+  <rect x="388" y="30" width="84" height="134" fill="#070709" stroke="url(#chrome)" stroke-width="3.5"/>
+  <g stroke="url(#chrome)" stroke-width="2" opacity=".7">
+    <line x1="400" y1="50" x2="460" y2="50"/>
+    <line x1="400" y1="64" x2="460" y2="64"/>
+    <line x1="400" y1="78" x2="444" y2="78"/>
+  </g>
+  <circle cx="430" cy="112" r="16" fill="none" stroke="#9d6bff" stroke-width="3"/>
+  <circle cx="430" cy="112" r="6" fill="#9d6bff"/>
+  <!-- folder the sheets sit in -->
+  <path d="M290 150 L330 150 L344 164 L570 164 L570 206 Q570 212 564 212 L296 212 Q290 212 290 206 Z"
+        fill="#101014" stroke="url(#chrome)" stroke-width="3" stroke-linejoin="round"/>
+  <line x1="290" y1="164" x2="570" y2="164" stroke="url(#chrome)" stroke-width="2" opacity=".6"/>
+</svg>
